@@ -1,70 +1,147 @@
-# Getting Started with Create React App
+# React App - Simple Setup & Deployment
+---
+![Deploy](https://github.com/dimasx010/current-time/actions/workflows/dpl.yml/badge.svg)
+![Made with React](https://img.shields.io/badge/React-18-blue?logo=react)
+[![Website](https://img.shields.io/badge/Live_Site-Current_Time-blue?style=flat-square)](https://dimasx010.github.io/puxurros/)
+---
+This project was bootstrapped with **Puxurros React App** and focuses mainly on showcasing **deployment with GitHub Actions + GitHub Pages**.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+---
 
-## Available Scripts
+## 🚀 Getting Started
 
-In the project directory, you can run:
+### 📦 Install Dependencies
 
-### `npm start`
+```bash
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### ▶️ Run Development Server
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+```bash
+npm start
+```
 
-### `npm test`
+* Opens your app at **[http://localhost:3000](http://localhost:3000)**
+* Hot reload enabled
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### 🧪 Run Tests
 
-### `npm run build`
+```bash
+npm test
+```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Runs Jest in watch mode.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 📦 Create Production Build
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```bash
+npm run build
+```
 
-### `npm run eject`
+* Generates an optimized build in `/build`
+* Minified, hashed filenames, ready for deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### ⚠️ Eject (Optional)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+npm run eject
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+> **Warning:** This is irreversible.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+This copies the internal Webpack/Babel/ESLint configs into your project for full customization.
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 📚 Learn More
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+* **CRA Docs:** [https://facebook.github.io/create-react-app/docs/getting-started](https://facebook.github.io/create-react-app/docs/getting-started)
+* **React Docs:** [https://reactjs.org/](https://reactjs.org/)
 
-### Code Splitting
+Additional CRA guides:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+* Code Splitting
+* Analyzing Bundle Size
+* Making a PWA
+* Advanced Configuration
+* Troubleshooting build errors
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+# 🚀 Deployment: GitHub Actions + GitHub Pages
 
-### Making a Progressive Web App
+This project’s main purpose is to demonstrate a clean CI/CD workflow for **automatic deployments** to GitHub Pages.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 📂 Branch Strategy
 
-### Advanced Configuration
+* **main** → source code
+* **gh-pages** → built static site (automatically updated)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+## 🤖 GitHub Actions Workflow
 
-### Deployment
+A typical workflow file:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+```yaml
+name: Deploy React App
 
-### `npm run build` fails to minify
+on:
+  push:
+    branches: ["main"]
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build project
+        run: npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build
+```
+
+## 🔧 Project Configuration for GitHub Pages
+
+In `package.json`, add:
+
+```json
+{
+  "homepage": "https://<your-username>.github.io/<repository-name>/"
+}
+```
+
+Then run:
+
+```bash
+npm run build
+```
+
+---
+
+## 🎯 Summary
+
+This repo is a simple React template but includes:
+
+* Modern GitHub Actions CI/CD
+* Automatic deployment to GitHub Pages
+* Clean and maintainable workflow
+
+
+---
+![Deploy](https://github.com/dimasx010/current-time/actions/workflows/dpl.yml/badge.svg)
+![Made with React](https://img.shields.io/badge/React-18-blue?logo=react)
+[![Website](https://img.shields.io/badge/Live_Site-Current_Time-blue?style=flat-square)](https://dimasx010.github.io/puxurros/)
+---
